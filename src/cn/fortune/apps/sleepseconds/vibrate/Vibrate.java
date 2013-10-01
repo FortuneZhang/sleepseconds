@@ -74,7 +74,7 @@ public class Vibrate {
         }
 
         if (mood.equalsIgnoreCase("NoRepeat")) {
-            long millsTime = getSharedPreferences().getInt("repeatTime", 1) * 60 * 60;
+            long millsTime = getSharedPreferences().getInt("repeatTime", 1) * 60 * 1000;
             this.setNoRepeat(millsTime);
         }
 
@@ -83,7 +83,7 @@ public class Vibrate {
     public void planVibrate() {
         Log.d("tag", "planVi");
 
-        endTime = TimeToMillSeconds.addTimeToNow(getSharedPreferences().getInt("sleepMinutes", 10));
+        endTime = TimeToMillSeconds.addTimeToNow(getSharedPreferences().getInt("sleepMinutes", 1));
         thread = new PlanVibrateThread();
         thread.start();
 
@@ -95,10 +95,12 @@ public class Vibrate {
         public void run() {
             long now ;
             while (true) {
-                Log.d("tag", "thread");
+
                 now = TimeToMillSeconds.nowOfMillSecond() ;
+                Log.d("now", String.valueOf(now));
                 if (now < endTime) {
                     Log.d("tag", "<");
+                    Log.e("time", String.valueOf((endTime - now) / 60000));
                     SystemClock.sleep((endTime-now)/2);
                 } else {
                     Log.d("tag", "> =");

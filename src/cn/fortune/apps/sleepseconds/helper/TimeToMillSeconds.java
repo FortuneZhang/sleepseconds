@@ -7,7 +7,7 @@ import java.util.Calendar;
  */
 public class TimeToMillSeconds {
     public static long addTimeToNow(int minutes) {
-        return nowOfMillSecond() + minutes * 60 * 60 ;
+        return nowOfMillSecond() + minutes * 60 * 1000;
     }
 
     public static long nowOfMillSecond() {

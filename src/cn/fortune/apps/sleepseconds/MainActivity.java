@@ -5,10 +5,7 @@ import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -18,7 +15,7 @@ import cn.fortune.apps.sleepseconds.vibrate.Vibrate;
 
 public class MainActivity extends Activity {
     private Button startSleep;
-    private EditText sleepMinutes;
+    private EditText configSleepMinutes;
     private static SharedPreferences sharedPreferences;
 
 
@@ -31,7 +28,7 @@ public class MainActivity extends Activity {
 
         initUI();
 
-        clickListener();
+        listener();
 
 
     }
@@ -44,7 +41,7 @@ public class MainActivity extends Activity {
 
     }
 
-    private void clickListener() {
+    private void listener() {
 
         startSleep.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,9 +58,9 @@ public class MainActivity extends Activity {
             }
         });
 
-        sleepMinutes.setInputType(InputType.TYPE_NULL);
+        configSleepMinutes.setInputType(InputType.TYPE_NULL);
 
-        sleepMinutes.setOnClickListener(new View.OnClickListener() {
+        configSleepMinutes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -72,12 +69,12 @@ public class MainActivity extends Activity {
                 numberPicker.setMaxValue(60);
                 numberPicker.setMinValue(5);
 
-                numberPicker.setValue(Integer.parseInt(sleepMinutes.getText().toString()));
+                numberPicker.setValue(Integer.parseInt(configSleepMinutes.getText().toString()));
 
                 numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        sleepMinutes.setText(String.valueOf(newVal));
+                        configSleepMinutes.setText(String.valueOf(newVal));
 
                     }
                 });
@@ -99,7 +96,7 @@ public class MainActivity extends Activity {
     private void initUI() {
 
         startSleep = (Button) findViewById(R.id.startSleep);
-        sleepMinutes = (EditText) findViewById(R.id.sleepMinutes);
+        configSleepMinutes = (EditText) findViewById(R.id.sleepMinutes);
     }
 
     public static SharedPreferences getSharedPreferences() {
@@ -108,6 +105,7 @@ public class MainActivity extends Activity {
 
     private void recordSleepMinute() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("sleepMinutes", Integer.parseInt(sleepMinutes.getText().toString()));
+        editor.putInt("sleepMinutes", Integer.parseInt(configSleepMinutes.getText().toString()));
+        editor.commit();
     }
 }
