@@ -2,9 +2,13 @@ package cn.fortune.apps.sleepseconds;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -107,5 +111,48 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("sleepMinutes", Integer.parseInt(configSleepMinutes.getText().toString()));
         editor.commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        menu.add(Menu.NONE, Menu.FIRST + 1, 1, "退出"); //setIcon
+        menu.add(Menu.NONE, Menu.FIRST + 2, 2, "设置");
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case  Menu.FIRST + 1 :
+                quit();
+                break;
+            case  Menu.FIRST + 2 :
+                goToSettingActivity();
+                break;
+            default:
+                break;
+
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void quit() {
+        System.exit(0);
+    }
+
+    private void goToSettingActivity() {
+
+        Log.d("jump", "jump");
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, SettingActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 }

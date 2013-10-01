@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="我就睡一会"
+            />
+
+    <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            >
+
+        <RadioButton
+                android:id="@+id/noRepeat"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:text="NoRepeat">
+        </RadioButton>
+
+
+        <RadioButton
+                android:id="@+id/repeatOne"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:text="repeatOne">
+        </RadioButton>
+
+
+
+        <RadioButton
+                android:id="@+id/repeatAlways"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:text="repeatAlways">
+        </RadioButton>
+
+
+    </RadioGroup>
+
+</LinearLayout>
+
+
+
