@@ -93,9 +93,8 @@ public class Vibrate {
     class PlanVibrateThread extends Thread {
         @Override
         public void run() {
-            boolean b = true;
             long now ;
-            while (b) {
+            while (true) {
                 Log.d("tag", "thread");
                 now = TimeToMillSeconds.nowOfMillSecond() ;
                 if (now < endTime) {
@@ -104,7 +103,7 @@ public class Vibrate {
                 } else {
                     Log.d("tag", "> =");
                     baseConfToVibrate();
-                    b = false;
+                   break;
                 }
             }
 
