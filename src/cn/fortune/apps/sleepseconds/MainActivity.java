@@ -61,6 +61,8 @@ public class MainActivity extends Activity {
             }
         });
 
+        sleepMinutes.setInputType(InputType.TYPE_NULL);
+
         sleepMinutes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +71,8 @@ public class MainActivity extends Activity {
                 NumberPicker numberPicker = new NumberPicker(MainActivity.this);
                 numberPicker.setMaxValue(60);
                 numberPicker.setMinValue(5);
+
+                numberPicker.setValue(Integer.parseInt(sleepMinutes.getText().toString()));
 
                 numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
