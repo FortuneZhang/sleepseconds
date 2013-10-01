@@ -1,0 +1,10 @@
+.idea
+.imp
+log
+tmp
+.DS_Store
+*.log
+gen
+out
+bin
+*iml
