@@ -74,7 +74,8 @@ public class Vibrate {
         }
 
         if (mood.equalsIgnoreCase("NoRepeat")) {
-            long millsTime = getSharedPreferences().getInt("repeatTime", 1) * 60 * 1000;
+//            long millsTime = getSharedPreferences().getInt("repeatTime", 1) * 60 * 1000;
+            long millsTime = 10 * 1000;
             this.setNoRepeat(millsTime);
         }
 

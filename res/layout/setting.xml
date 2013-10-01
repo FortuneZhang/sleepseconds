@@ -23,7 +23,7 @@
                 android:id="@+id/noRepeat"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
-                android:text="NoRepeat">
+                android:text="震动10秒">
         </RadioButton>
 
 
@@ -31,7 +31,7 @@
                 android:id="@+id/repeatOne"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
-                android:text="repeatOne">
+                android:text="震动一次">
         </RadioButton>
 
 
@@ -40,7 +40,7 @@
                 android:id="@+id/repeatAlways"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
-                android:text="repeatAlways">
+                android:text="把我震醒">
         </RadioButton>
 
 

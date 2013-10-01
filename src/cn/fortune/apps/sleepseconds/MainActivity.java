@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 
+import cn.fortune.apps.sleepseconds.helper.SharedPreferencesHelper;
 import cn.fortune.apps.sleepseconds.vibrate.Vibrate;
 
 public class MainActivity extends Activity {
@@ -42,6 +43,7 @@ public class MainActivity extends Activity {
         (new Vibrate()).init(this);
 
         sharedPreferences = getSharedPreferences("sleep_seconds_conf", MODE_PRIVATE);
+        (new SharedPreferencesHelper()).init(this);
 
     }
 
@@ -109,7 +111,8 @@ public class MainActivity extends Activity {
 
     private void recordSleepMinute() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("sleepMinutes", Integer.parseInt(configSleepMinutes.getText().toString()));
+//        editor.putInt("sleepMinutes", Integer.parseInt(configSleepMinutes.getText().toString()));
+        editor.putInt("sleepMinutes", 1);
         editor.commit();
     }
 
