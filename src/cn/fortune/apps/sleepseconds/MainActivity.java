@@ -1,26 +1,29 @@
 package cn.fortune.apps.sleepseconds;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 
 
 import cn.fortune.apps.sleepseconds.vibrate.Vibrate;
 
-public class MainActivity extends Activity
-{
+public class MainActivity extends Activity {
     private Button startSleep;
     private EditText sleepMinutes;
     private static SharedPreferences sharedPreferences;
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -28,7 +31,7 @@ public class MainActivity extends Activity
 
         initUI();
 
-        btnClickListener();
+        clickListener();
 
 
     }
@@ -37,13 +40,11 @@ public class MainActivity extends Activity
 
         (new Vibrate()).init(this);
 
-        sharedPreferences =  getSharedPreferences("sleep_seconds_conf", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("sleep_seconds_conf", MODE_PRIVATE);
 
     }
 
-    private void btnClickListener() {
-
-        final Activity activity = this;
+    private void clickListener() {
 
         startSleep.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +60,35 @@ public class MainActivity extends Activity
                 }
             }
         });
+
+        sleepMinutes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                NumberPicker numberPicker = new NumberPicker(MainActivity.this);
+                numberPicker.setMaxValue(60);
+                numberPicker.setMinValue(5);
+
+                numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                        sleepMinutes.setText(String.valueOf(newVal));
+
+                    }
+                });
+                numberPicker.setWrapSelectorWheel(true);
+
+                ((EditText) numberPicker.getChildAt(1)).setInputType(InputType.TYPE_NULL);
+
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).setTitle("休息分钟")
+                        .setView(numberPicker).setPositiveButton("ok", null).create();
+                alertDialog.show();
+
+            }
+        });
+
+
     }
 
 
