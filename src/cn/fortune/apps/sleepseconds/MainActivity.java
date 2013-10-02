@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,8 +56,6 @@ public class MainActivity extends Activity {
         startSleep = (Button) findViewById(R.id.startSleep);
         configSleepMinutes = (EditText) findViewById(R.id.sleepMinutes);
     }
-
-
 
 
     private void listener() {
@@ -140,15 +139,14 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case  Menu.FIRST + 1 :
+            case Menu.FIRST + 1:
                 quit();
                 break;
-            case  Menu.FIRST + 2 :
+            case Menu.FIRST + 2:
                 goToSettingActivity();
                 break;
             default:
                 break;
-
 
 
         }
@@ -158,7 +156,7 @@ public class MainActivity extends Activity {
 
     private void quit() {
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
-                .setTitle("确定要退出吗？").setPositiveButton("确定",new DialogInterface.OnClickListener() {
+                .setTitle("确定要退出吗？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -167,7 +165,7 @@ public class MainActivity extends Activity {
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        return ;
+                        return;
                     }
                 }).create();
         alertDialog.show();
@@ -182,5 +180,30 @@ public class MainActivity extends Activity {
         startActivity(intent);
         finish();
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d("------key down", "invoke");
+        if (startSleep.getText().toString().equalsIgnoreCase("开始") &&
+                (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME)) {
+            Log.d("------key down", "invoke");
+
+            quit();
+        } else if (startSleep.getText().toString().equalsIgnoreCase("结束") &&
+                Vibrate.getVibrateState() &&
+                (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME ||
+                        keyCode == event.KEYCODE_POWER || keyCode == event.KEYCODE_VOLUME_UP ||
+                        keyCode == event.KEYCODE_VOLUME_DOWN || keyCode == event.KEYCODE_VOLUME_MUTE)
+                ) {
+            Log.d("------key down", "jieshu");
+            (new Vibrate()).cancel();
+            startSleep.setText("开始");
+        } else if (keyCode == event.KEYCODE_BACK) {
+            quit();
+        }
+
+        return true;
+//        return super.onKeyDown(keyCode, event);
     }
 }

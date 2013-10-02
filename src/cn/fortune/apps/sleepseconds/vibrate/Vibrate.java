@@ -18,6 +18,7 @@ public class Vibrate {
     private static Vibrator vibrate;
     private static long endTime;
     private static Thread thread;
+    private static boolean isVibrateRunning = false;
 
     public void init(Activity activity) {
         vibrate = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
@@ -25,6 +26,10 @@ public class Vibrate {
 
     public Vibrate() {
 
+    }
+
+    public static boolean getVibrateState() {
+        return isVibrateRunning;
     }
 
     public void setNoRepeat(long millisecond) {
@@ -46,11 +51,13 @@ public class Vibrate {
 
 
     private void setRepeat(int repeat) {
+        isVibrateRunning = true;
         vibrate.vibrate(pattern, repeat);
     }
 
     public void cancel() {
         vibrate.cancel();
+        isVibrateRunning = false;
         thread.interrupt();
     }
 
