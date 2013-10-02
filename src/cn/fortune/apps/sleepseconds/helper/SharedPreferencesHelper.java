@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 public class SharedPreferencesHelper {
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
+    private static SharedPreferencesHelper sharedPreferencesHelper;
 
     public SharedPreferencesHelper() {
 
@@ -35,5 +36,12 @@ public class SharedPreferencesHelper {
     public void setTipTime(int tipTime) {
         editor.putInt("sleepMinutes", tipTime);
         editor.commit();
+    }
+
+    public static SharedPreferencesHelper getInstance() {
+        if (sharedPreferencesHelper == null) {
+            sharedPreferencesHelper = new SharedPreferencesHelper();
+        }
+        return sharedPreferencesHelper;
     }
 }

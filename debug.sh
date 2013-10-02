@@ -10,7 +10,7 @@
 echo "\033[32;49;41m auto running\033[39;49;0m"
 #收集信息
 #包名
-line=`grep -r 'package=\"com' AndroidManifest.xml | head -1 `
+line=`grep -r 'package=\"cn' AndroidManifest.xml | head -1 `
 s=${line#*\"};
 package_name=${s%%\"*}
 

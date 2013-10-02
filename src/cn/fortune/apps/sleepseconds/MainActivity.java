@@ -35,8 +35,9 @@ public class MainActivity extends Activity {
 
         listener();
 
-
+        renderUi();
     }
+
 
     private void initVarForOther() {
 
@@ -46,6 +47,16 @@ public class MainActivity extends Activity {
         (new SharedPreferencesHelper()).init(this);
 
     }
+
+
+    private void initUI() {
+
+        startSleep = (Button) findViewById(R.id.startSleep);
+        configSleepMinutes = (EditText) findViewById(R.id.sleepMinutes);
+    }
+
+
+
 
     private void listener() {
 
@@ -99,10 +110,9 @@ public class MainActivity extends Activity {
     }
 
 
-    private void initUI() {
-
-        startSleep = (Button) findViewById(R.id.startSleep);
-        configSleepMinutes = (EditText) findViewById(R.id.sleepMinutes);
+    private void renderUi() {
+        int tipTime = SharedPreferencesHelper.getInstance().getTipTime();
+        configSleepMinutes.setText(String.valueOf(tipTime));
     }
 
     public static SharedPreferences getSharedPreferences() {
@@ -111,8 +121,8 @@ public class MainActivity extends Activity {
 
     private void recordSleepMinute() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putInt("sleepMinutes", Integer.parseInt(configSleepMinutes.getText().toString()));
-        editor.putInt("sleepMinutes", 1);
+        editor.putInt("sleepMinutes", Integer.parseInt(configSleepMinutes.getText().toString()));
+//        editor.putInt("sleepMinutes", 1);
         editor.commit();
     }
 
