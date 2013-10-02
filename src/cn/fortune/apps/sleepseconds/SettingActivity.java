@@ -25,6 +25,8 @@ public class SettingActivity extends Activity {
 
         initUi();
 
+        renderUi();
+
         uiListener();
     }
 
@@ -56,6 +58,21 @@ public class SettingActivity extends Activity {
         repeatAlways = (RadioButton) findViewById(R.id.repeatAlways);
     }
 
+    private void renderUi() {
+        String mood = SharedPreferencesHelper.getInstance().getVibrateMood();
+
+        if (mood.equalsIgnoreCase("noRepeat")) {
+            noRepeat.setChecked(true);
+        } else if (mood.equalsIgnoreCase("repeatOne")) {
+            repeatOne.setChecked(true);
+        } else if (mood.equalsIgnoreCase("repeatAlways")) {
+            repeatAlways.setChecked(true);
+        } else {
+            repeatOne.setChecked(true);
+        }
+
+
+    }
     private void goToMainActivity() {
         Intent intent = new Intent();
         intent.setClass(SettingActivity.this, MainActivity.class);
