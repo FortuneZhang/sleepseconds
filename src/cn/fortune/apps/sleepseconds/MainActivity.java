@@ -2,6 +2,7 @@ package cn.fortune.apps.sleepseconds;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -156,7 +157,21 @@ public class MainActivity extends Activity {
     }
 
     private void quit() {
-        System.exit(0);
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
+                .setTitle("确定要退出吗？").setPositiveButton("确定",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return ;
+                    }
+                }).create();
+        alertDialog.show();
+
     }
 
     private void goToSettingActivity() {
