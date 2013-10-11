@@ -221,6 +221,6 @@ public class MainActivity extends Activity {
 
     private void decrease() {
         int minute = Integer.parseInt(txtConfigSleepMinutes.getText().toString());
-        txtConfigSleepMinutes.setText(String.valueOf(minute + 1));
+        txtConfigSleepMinutes.setText(String.valueOf(minute == 60 ? 5 : minute - 1));
     }
 }
