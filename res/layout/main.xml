@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="休息"
                 android:layout_marginTop="16dip"
-                android:layout_marginLeft="30dip"
+                android:layout_marginLeft="-30dip"
                 android:layout_marginRight="30dip"
                 android:textSize="16dp"></TextView>
 
