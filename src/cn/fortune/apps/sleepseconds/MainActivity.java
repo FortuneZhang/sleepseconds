@@ -8,8 +8,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Display;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +26,8 @@ public class MainActivity extends Activity {
     private Button btnStartSleep;
     private EditText txtConfigSleepMinutes;
     private static SharedPreferences sharedPreferences;
+    private static int X;
+    private static int Y;
 
 
     @Override
@@ -47,6 +52,9 @@ public class MainActivity extends Activity {
         sharedPreferences = getSharedPreferences("sleep_seconds_conf", MODE_PRIVATE);
         (new SharedPreferencesHelper()).init(this);
 
+        Display display = getWindowManager().getDefaultDisplay();
+        X = display.getWidth();
+        Y = display.getHeight();
     }
 
 
@@ -177,37 +185,41 @@ public class MainActivity extends Activity {
     }
 
     private void goToSettingActivity() {
-
-        Log.d("jump", "jump");
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, SettingActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == event.KEYCODE_BACK) {
+            quit();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (event.getX() < X / 2) {
+                increase();
+            } else {
+                decrease();
+            }
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    private void increase() {
+        int minute = Integer.parseInt(txtConfigSleepMinutes.getText().toString());
+        txtConfigSleepMinutes.setText(String.valueOf(minute - 1));
 
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        Log.d("------key down", "invoke");
-//        if (btnStartSleep.getText().toString().equalsIgnoreCase("开始") &&
-//                (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME)) {
-//            Log.d("------key down", "invoke");
-//
-//            quit();
-//        } else if (btnStartSleep.getText().toString().equalsIgnoreCase("结束") &&
-//                Vibrate.getVibrateState() &&
-//                (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME ||
-//                        keyCode == event.KEYCODE_POWER || keyCode == event.KEYCODE_VOLUME_UP ||
-//                        keyCode == event.KEYCODE_VOLUME_DOWN || keyCode == event.KEYCODE_VOLUME_MUTE)
-//                ) {
-//            Log.d("------key down", "jieshu");
-//            (new Vibrate()).cancel();
-//            btnStartSleep.setText("开始");
-//        } else if (keyCode == event.KEYCODE_BACK) {
-//            quit();
-//        }
-//
-////        return true;
-//        return super.onKeyDown(keyCode, event);
-//    }
+    private void decrease() {
+        int minute = Integer.parseInt(txtConfigSleepMinutes.getText().toString());
+        txtConfigSleepMinutes.setText(String.valueOf(minute + 1));
+    }
 }
