@@ -19,6 +19,7 @@ public class Vibrate {
     private static long endTime;
     private static Thread thread;
     private static boolean isVibrateRunning = false;
+    private static boolean isPlanVibrate = false;
 
     public void init(Activity activity) {
         vibrate = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
@@ -26,6 +27,10 @@ public class Vibrate {
 
     public Vibrate() {
 
+    }
+
+    public static boolean getVibratePlanState() {
+        return isPlanVibrate;
     }
 
     public static boolean getVibrateState() {
@@ -62,7 +67,7 @@ public class Vibrate {
     }
 
     private SharedPreferences getSharedPreferences() {
-       return MainActivity.getSharedPreferences();
+        return MainActivity.getSharedPreferences();
     }
 
     public void baseConfToVibrate() {
@@ -101,19 +106,22 @@ public class Vibrate {
     class PlanVibrateThread extends Thread {
         @Override
         public void run() {
-            long now ;
+            isPlanVibrate = true;
+            long now;
             while (true) {
 
-                now = TimeToMillSeconds.nowOfMillSecond() ;
+                now = TimeToMillSeconds.nowOfMillSecond();
                 Log.d("now", String.valueOf(now));
+                Log.d("plan ", isPlanVibrate ? "true" : "false");
                 if (now < endTime) {
                     Log.d("tag", "<");
                     Log.e("time", String.valueOf((endTime - now) / 60000));
-                    SystemClock.sleep((endTime-now)/2);
+                    SystemClock.sleep((endTime - now) / 2);
                 } else {
                     Log.d("tag", "> =");
+                    isPlanVibrate = false;
                     baseConfToVibrate();
-                   break;
+                    break;
                 }
             }
 

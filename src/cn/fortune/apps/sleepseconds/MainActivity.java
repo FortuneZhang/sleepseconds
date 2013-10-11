@@ -112,6 +112,11 @@ public class MainActivity extends Activity {
     private void renderUi() {
         int tipTime = SharedPreferencesHelper.getInstance().getTipTime();
         txtConfigSleepMinutes.setText(String.valueOf(tipTime));
+
+        Log.d("-plan", Vibrate.getVibratePlanState() ? "true" : "false");
+        if (Vibrate.getVibratePlanState()) {
+            btnStartSleep.setText("结束");
+        }
     }
 
     public static SharedPreferences getSharedPreferences() {
@@ -120,8 +125,8 @@ public class MainActivity extends Activity {
 
     private void recordSleepMinute() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("sleepMinutes", Integer.parseInt(txtConfigSleepMinutes.getText().toString()));
-//        editor.putInt("sleepMinutes", 1);
+//        editor.putInt("sleepMinutes", Integer.parseInt(txtConfigSleepMinutes.getText().toString()));
+        editor.putInt("sleepMinutes", 1);
         editor.commit();
     }
 
