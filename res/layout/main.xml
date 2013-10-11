@@ -23,31 +23,42 @@
             android:gravity="center_horizontal"
             />
 
-
-    <TextView
-            android:layout_width="wrap_content"
+    <RelativeLayout
+            android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="休息"
-            android:textSize="16dp"></TextView>
-
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:ems="10"
-            android:id="@+id/sleepMinutes"
-            android:text="10"
-            android:layout_gravity="center"/>
+            android:layout_width="fill_parent">
 
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="休息"
+                android:layout_marginTop="16dip"
+                android:layout_marginLeft="30dip"
+                android:layout_marginRight="30dip"
+                android:textSize="16dp"></TextView>
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="分钟"
-            android:textSize="16dp"></TextView>
+        <EditText
+                android:layout_width="150dip"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:ems="10"
+                android:id="@+id/sleepMinutes"
+                android:text="10"
 
+                android:layout_marginLeft="30dip"
+                android:layout_marginRight="30dip"
+                android:layout_gravity="center"/>
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/sleepMinutes"
+                android:text="分钟"
+                android:layout_marginTop="16dip"
+                android:textSize="16dp"></TextView>
+
+    </RelativeLayout>
 
 
     <Button
