@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -78,5 +79,13 @@ public class SettingActivity extends Activity {
         intent.setClass(SettingActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.KEYCODE_BACK == keyCode) {
+            goToMainActivity();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
