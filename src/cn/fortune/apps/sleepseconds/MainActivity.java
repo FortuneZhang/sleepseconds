@@ -214,7 +214,7 @@ public class MainActivity extends Activity {
 
     private void increase() {
         int minute = Integer.parseInt(txtConfigSleepMinutes.getText().toString());
-        txtConfigSleepMinutes.setText(String.valueOf(minute - 1));
+        txtConfigSleepMinutes.setText(String.valueOf(minute == 5 ? 60 : minute - 1));
 
     }
 
