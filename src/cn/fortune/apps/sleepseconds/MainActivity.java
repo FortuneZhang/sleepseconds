@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,8 +20,8 @@ import cn.fortune.apps.sleepseconds.helper.SharedPreferencesHelper;
 import cn.fortune.apps.sleepseconds.vibrate.Vibrate;
 
 public class MainActivity extends Activity {
-    private Button startSleep;
-    private EditText configSleepMinutes;
+    private Button btnStartSleep;
+    private EditText txtConfigSleepMinutes;
     private static SharedPreferences sharedPreferences;
 
 
@@ -53,31 +52,31 @@ public class MainActivity extends Activity {
 
     private void initUI() {
 
-        startSleep = (Button) findViewById(R.id.startSleep);
-        configSleepMinutes = (EditText) findViewById(R.id.sleepMinutes);
+        btnStartSleep = (Button) findViewById(R.id.startSleep);
+        txtConfigSleepMinutes = (EditText) findViewById(R.id.sleepMinutes);
     }
 
 
     private void listener() {
 
-        startSleep.setOnClickListener(new View.OnClickListener() {
+        btnStartSleep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recordSleepMinute();
 
-                if (startSleep.getText().toString().equalsIgnoreCase("开始")) {
-                    startSleep.setText("结束");
+                if (btnStartSleep.getText().toString().equalsIgnoreCase("开始")) {
+                    btnStartSleep.setText("结束");
                     (new Vibrate()).planVibrate();
                 } else {
                     (new Vibrate()).cancel();
-                    startSleep.setText("开始");
+                    btnStartSleep.setText("开始");
                 }
             }
         });
 
-        configSleepMinutes.setInputType(InputType.TYPE_NULL);
+        txtConfigSleepMinutes.setInputType(InputType.TYPE_NULL);
 
-        configSleepMinutes.setOnClickListener(new View.OnClickListener() {
+        txtConfigSleepMinutes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -86,12 +85,12 @@ public class MainActivity extends Activity {
                 numberPicker.setMaxValue(60);
                 numberPicker.setMinValue(5);
 
-                numberPicker.setValue(Integer.parseInt(configSleepMinutes.getText().toString()));
+                numberPicker.setValue(Integer.parseInt(txtConfigSleepMinutes.getText().toString()));
 
                 numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        configSleepMinutes.setText(String.valueOf(newVal));
+                        txtConfigSleepMinutes.setText(String.valueOf(newVal));
 
                     }
                 });
@@ -112,7 +111,7 @@ public class MainActivity extends Activity {
 
     private void renderUi() {
         int tipTime = SharedPreferencesHelper.getInstance().getTipTime();
-        configSleepMinutes.setText(String.valueOf(tipTime));
+        txtConfigSleepMinutes.setText(String.valueOf(tipTime));
     }
 
     public static SharedPreferences getSharedPreferences() {
@@ -121,7 +120,7 @@ public class MainActivity extends Activity {
 
     private void recordSleepMinute() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("sleepMinutes", Integer.parseInt(configSleepMinutes.getText().toString()));
+        editor.putInt("sleepMinutes", Integer.parseInt(txtConfigSleepMinutes.getText().toString()));
 //        editor.putInt("sleepMinutes", 1);
         editor.commit();
     }
@@ -182,28 +181,28 @@ public class MainActivity extends Activity {
 
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.d("------key down", "invoke");
-        if (startSleep.getText().toString().equalsIgnoreCase("开始") &&
-                (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME)) {
-            Log.d("------key down", "invoke");
-
-            quit();
-        } else if (startSleep.getText().toString().equalsIgnoreCase("结束") &&
-                Vibrate.getVibrateState() &&
-                (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME ||
-                        keyCode == event.KEYCODE_POWER || keyCode == event.KEYCODE_VOLUME_UP ||
-                        keyCode == event.KEYCODE_VOLUME_DOWN || keyCode == event.KEYCODE_VOLUME_MUTE)
-                ) {
-            Log.d("------key down", "jieshu");
-            (new Vibrate()).cancel();
-            startSleep.setText("开始");
-        } else if (keyCode == event.KEYCODE_BACK) {
-            quit();
-        }
-
-        return true;
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        Log.d("------key down", "invoke");
+//        if (btnStartSleep.getText().toString().equalsIgnoreCase("开始") &&
+//                (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME)) {
+//            Log.d("------key down", "invoke");
+//
+//            quit();
+//        } else if (btnStartSleep.getText().toString().equalsIgnoreCase("结束") &&
+//                Vibrate.getVibrateState() &&
+//                (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME ||
+//                        keyCode == event.KEYCODE_POWER || keyCode == event.KEYCODE_VOLUME_UP ||
+//                        keyCode == event.KEYCODE_VOLUME_DOWN || keyCode == event.KEYCODE_VOLUME_MUTE)
+//                ) {
+//            Log.d("------key down", "jieshu");
+//            (new Vibrate()).cancel();
+//            btnStartSleep.setText("开始");
+//        } else if (keyCode == event.KEYCODE_BACK) {
+//            quit();
+//        }
+//
+////        return true;
 //        return super.onKeyDown(keyCode, event);
-    }
+//    }
 }
