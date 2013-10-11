@@ -20,6 +20,7 @@ public class SharedPreferencesHelper {
         sharedPreferences = activity.getSharedPreferences("sleep_seconds_conf", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
+
     public String getVibrateMood() {
         return sharedPreferences.getString("tipMood", "repeatAlways");
     }

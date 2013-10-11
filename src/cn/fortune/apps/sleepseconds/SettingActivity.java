@@ -74,6 +74,7 @@ public class SettingActivity extends Activity {
 
 
     }
+
     private void goToMainActivity() {
         Intent intent = new Intent();
         intent.setClass(SettingActivity.this, MainActivity.class);
