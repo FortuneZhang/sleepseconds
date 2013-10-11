@@ -134,8 +134,8 @@ public class MainActivity extends Activity {
 
     private void recordSleepMinute() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putInt("sleepMinutes", Integer.parseInt(txtConfigSleepMinutes.getText().toString()));
-        editor.putInt("sleepMinutes", 1);
+        editor.putInt("sleepMinutes", Integer.parseInt(txtConfigSleepMinutes.getText().toString()));
+//        editor.putInt("sleepMinutes", 1);
         editor.commit();
     }
 
