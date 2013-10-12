@@ -204,9 +204,9 @@ public class MainActivity extends Activity {
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (event.getX() < X / 2) {
-                increase();
-            } else {
                 decrease();
+            } else {
+                increase();
             }
         }
 
@@ -215,12 +215,12 @@ public class MainActivity extends Activity {
 
     private void increase() {
         int minute = Integer.parseInt(txtConfigSleepMinutes.getText().toString());
-        txtConfigSleepMinutes.setText(String.valueOf(minute == 5 ? 60 : minute + 1));
+        txtConfigSleepMinutes.setText(String.valueOf(minute == 60 ? 5 : minute + 1));
 
     }
 
     private void decrease() {
         int minute = Integer.parseInt(txtConfigSleepMinutes.getText().toString());
-        txtConfigSleepMinutes.setText(String.valueOf(minute == 60 ? 5 : minute - 1));
+        txtConfigSleepMinutes.setText(String.valueOf(minute == 5 ? 60 : minute - 1));
     }
 }
